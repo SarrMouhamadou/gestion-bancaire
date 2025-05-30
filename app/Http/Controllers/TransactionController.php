@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use App\Models\Compte;
+use App\Notifications\TransactionNotification;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -47,6 +48,10 @@ class TransactionController extends Controller
         }
 
         $compteSource->save();
+
+        // Envoyer la notification au client
+        $client = $compteSource->client;
+        $client->notify(new TransactionNotification($transaction));
 
         return $transaction;
     }

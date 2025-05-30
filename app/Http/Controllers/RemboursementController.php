@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Remboursement;
 use App\Models\Credit;
 use Illuminate\Http\Request;
+use App\Notifications\RemboursementNotification;
 
 class RemboursementController extends Controller
 {
@@ -29,6 +30,10 @@ class RemboursementController extends Controller
         if ($totalRembourse >= $totalDu) {
             $credit->update(['statut' => 'termine']);
         }
+
+        // Envoyer la notification au client
+        $client = $credit->client;
+        $client->notify(new RemboursementNotification($remboursement));
 
         return response()->json($remboursement, 201);
     }

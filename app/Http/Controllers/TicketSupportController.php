@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TicketSupport;
+use App\Notifications\TicketSupportNotification;
 
 class TicketSupportController extends Controller
 {
@@ -45,6 +46,10 @@ class TicketSupportController extends Controller
             'statut' => $validated['statut'],
             'admin_id' => $validated['admin_id'] ?? $ticket->admin_id,
         ]);
+
+        // Envoyer une notification au client
+        $client = $ticket->client;
+        $client->notify(new TicketSupportNotification($ticket));
 
         return $ticket;
     }

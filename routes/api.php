@@ -42,6 +42,12 @@ Route::prefix('admin')->group(function () {
     Route::middleware('auth:admin')->post('logout', [AdminAuthController::class, 'logout']);
 });
 
+Route::get('test-email', function () {
+    \Illuminate\Support\Facades\Mail::raw('Test email', function ($message) {
+        $message->to('msarrmoustapha@gmail.com')->subject('Test Email');
+    });
+    return 'Email envoyé !';
+});
 
 // Routes pour les admins
 Route::middleware('auth:admin')->group(function () {
