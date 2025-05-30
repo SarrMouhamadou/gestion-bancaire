@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Remboursement extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'montant', 'date', 'credit_id'
+    ];
+
+    public function credit()
+    {
+        return $this->belongsTo(Credit::class);
+    }
 }

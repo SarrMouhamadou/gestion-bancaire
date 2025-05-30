@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class TicketSupport extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'sujet', 'description', 'date_ouverture', 'statut', 'client_id', 'admin_id'
+    ];
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
+    }
 }

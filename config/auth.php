@@ -1,5 +1,7 @@
 <?php
 
+use Laravel\Sanctum\Sanctum;
+
 return [
 
     /*
@@ -40,6 +42,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'client' => [
+            'driver' => 'sanctum',
+            'provider' => 'clients',
+        ],
+        'admin' => [
+            'driver' => 'Sanctum',
+            'provider' => 'admins',
+        ],
     ],
 
     /*
@@ -63,6 +73,14 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'clients' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Client::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
         ],
 
         // 'users' => [

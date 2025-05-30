@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class FraisBancaire extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'compte_id', 'type', 'montant', 'date', 'statut'
+    ];
+
+    public function compte()
+    {
+        $this->belongsTo(Compte::class);
+    }
 }
